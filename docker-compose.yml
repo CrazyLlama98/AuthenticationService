@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  authenticationservice:
+    image: ${DOCKER_REGISTRY-}authenticationservice
+    build:
+      context: .
+      dockerfile: AuthenticationService/Dockerfile
+
+
+  local-postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: test1234
+      POSTGRES_USER: test
+    ports:
+      - '5433:5432'

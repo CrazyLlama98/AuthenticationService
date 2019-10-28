@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AuthenticationService.Extensions;
+using AuthenticationService.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace AuthenticationService
 {
@@ -24,7 +21,15 @@ namespace AuthenticationService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddApplicationDbContext(Configuration.GetConnectionString(Constants.AuthenticationConnectionStringKey))
+                .AddCustomIdentity()
+                .AddConfiguredIdentityServer(Configuration.GetConnectionString(Constants.OperationalConnectionStringKey))
+                .AddConfiguredMapper()
+                .AddApplicationServices()
+                .AddSwaggerDocumentation()
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +40,19 @@ namespace AuthenticationService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseDatabaseMigrations();
+            app.UseAdminAccount(Configuration["Admin:Username"], Configuration["Admin:Password"], Configuration["Admin:Role"])
+                .UseApplicationRoles(Configuration.GetSection(Constants.ApplicationRolesKey).Get<IEnumerable<string>>());
+            app.UseSwaggerDocumentation();
+            app.UseIdentityServer();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvc(routes =>
+            {
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" });
+            });
         }
     }
 }

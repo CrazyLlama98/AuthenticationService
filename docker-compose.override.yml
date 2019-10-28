@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  authenticationservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "32770:80"
