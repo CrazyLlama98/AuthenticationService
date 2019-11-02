@@ -8,7 +8,8 @@ using AuthenticationService.Utilities;
 using AutoMapper;
 using AuthenticationService.Services.Interfaces;
 using AuthenticationService.Services.Implementation;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 
 namespace AuthenticationService.Extensions
 {
@@ -72,7 +73,17 @@ namespace AuthenticationService.Extensions
             return services
                 .AddSwaggerGen(options =>
                 {
-                    options.SwaggerDoc("v1", new Info { Title = "AuthenticationService", Version = "v1" });
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationService", Version = "v1" });
+                });
+        }
+
+        public static IServiceCollection AddCustomApiVersions(this IServiceCollection services)
+        {
+            return services
+                .AddApiVersioning(options =>
+                {
+                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                    options.AssumeDefaultVersionWhenUnspecified = true;
                 });
         }
     }

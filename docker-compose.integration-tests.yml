@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  local-postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: test1234
+      POSTGRES_USER: test
+    ports:
+      - '5435:5432'

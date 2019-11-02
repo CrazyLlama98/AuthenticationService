@@ -28,6 +28,7 @@ namespace AuthenticationService
                 .AddConfiguredMapper()
                 .AddApplicationServices()
                 .AddSwaggerDocumentation()
+                .AddCustomApiVersions()
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
