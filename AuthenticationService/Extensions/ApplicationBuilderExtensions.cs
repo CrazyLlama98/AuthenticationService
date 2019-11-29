@@ -1,11 +1,14 @@
-﻿using AuthenticationService.DbContexts;
-using AuthenticationService.Models;
+﻿using AuthenticationService.Infrastructure.DbContexts;
+using AuthenticationService.Domain.Models;
 using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using AuthenticationService.Utilities;
+using System.Linq;
+using IdentityServer4.EntityFramework.Mappers;
 
 namespace AuthenticationService.Extensions
 {
@@ -17,9 +20,39 @@ namespace AuthenticationService.Extensions
             {
                 var authenticationDbContext = scope.ServiceProvider.GetService<AuthenticationDbContext>();
                 var operationalDbContext = scope.ServiceProvider.GetService<PersistedGrantDbContext>();
+                var configurationDbContext = scope.ServiceProvider.GetService<ConfigurationDbContext>();
 
                 authenticationDbContext.Database.Migrate();
                 operationalDbContext.Database.Migrate();
+                configurationDbContext.Database.Migrate();
+            }
+
+            return app;
+        }
+
+        public static IApplicationBuilder UsePostmanClient(this IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var configurationDbContext = scope.ServiceProvider.GetService<ConfigurationDbContext>();
+
+                if (!configurationDbContext.Clients.Any())
+                {
+                    configurationDbContext.Clients.AddRange(Configuration.GetClients().Select(client => client.ToEntity()));
+                    configurationDbContext.SaveChanges();
+                }
+
+                if (!configurationDbContext.IdentityResources.Any())
+                {
+                    configurationDbContext.IdentityResources.AddRange(Configuration.GetIdentityResources().Select(resource => resource.ToEntity()));
+                    configurationDbContext.SaveChanges();
+                }
+
+                if (!configurationDbContext.ApiResources.Any())
+                {
+                    configurationDbContext.ApiResources.AddRange(Configuration.GetApiResources().Select(resource => resource.ToEntity()));
+                    configurationDbContext.SaveChanges();
+                }
             }
 
             return app;
@@ -29,7 +62,8 @@ namespace AuthenticationService.Extensions
             this IApplicationBuilder app,
             string adminUsername,
             string adminPassword,
-            string adminRoleName)
+            string adminRoleName,
+            string adminEmail)
         {
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
@@ -43,7 +77,12 @@ namespace AuthenticationService.Extensions
 
                 if (userManager.FindByNameAsync(adminUsername).Result == null)
                 {
-                    userManager.CreateAsync(new User { UserName = adminUsername, Email = adminUsername }, adminPassword).Wait();
+                    var admin = new User { UserName = adminUsername, Email = adminEmail };
+                    var result = userManager.CreateAsync(admin, adminPassword).Result;
+                    if (result.Succeeded)
+                    {
+                        userManager.AddToRoleAsync(admin, adminRoleName);
+                    }
                 }
             }
 

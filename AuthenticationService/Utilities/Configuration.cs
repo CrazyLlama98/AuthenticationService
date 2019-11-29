@@ -6,38 +6,42 @@ namespace AuthenticationService.Utilities
 {
     public class Configuration
     {
-        public static IEnumerable<IdentityResource> GetIdentityResources()
-        {
-            return new List<IdentityResource>
-            {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-            };
-        }
-
         public static IEnumerable<Client> GetClients()
         {
             return new List<Client>
             {
                 new Client
                 {
-                    ClientId = "guess-the-score-spa",
-                    ClientName = "Guess The Score Client",
-                    ClientUri = "http://identityserver.io",
-
+                    ClientId = "postman-client",
+                    ClientName = "Postman native app client",
+                    RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-
-                    RedirectUris =           { "http://localhost:7017/index.html" },
-                    PostLogoutRedirectUris = { "http://localhost:7017/index.html" },
-                    AllowedCorsOrigins =     { "http://localhost:7017" },
-
+                    RedirectUris = { "https://app.getpostman.com/oauth2/callback" },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "auth-service"
                     }
                 }
+            };
+        }
+
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            return new List<IdentityResource>
+            {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile()
+            };
+        }
+
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource("auth-service")
             };
         }
     }

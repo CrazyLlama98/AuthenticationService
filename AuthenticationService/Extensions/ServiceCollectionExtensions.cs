@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using AuthenticationService.Models;
+using AuthenticationService.Domain.Models;
 using Microsoft.AspNetCore.Identity;
-using AuthenticationService.DbContexts;
-using System.Reflection;
-using AuthenticationService.Utilities;
-using AutoMapper;
-using AuthenticationService.Services.Interfaces;
-using AuthenticationService.Services.Implementation;
+using AuthenticationService.Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
@@ -15,12 +10,17 @@ namespace AuthenticationService.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddCustomCors(this IServiceCollection services)
         {
             return services
-                .AddDbContext<AuthenticationDbContext>(options =>
+                .AddCors(options =>
                 {
-                    options.UseNpgsql(connectionString);
+                    options.AddPolicy("AllowAll",
+                        builder => builder
+                            .WithOrigins("http://localhost:8080")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials());
                 });
         }
 
@@ -41,31 +41,29 @@ namespace AuthenticationService.Extensions
 
         public static IServiceCollection AddConfiguredIdentityServer(
             this IServiceCollection services,
-            string operationalConnection)
+            string operationalConnection,
+            string configurationConnection)
         {
-            var migrationAssembly = typeof(ServiceCollectionExtensions).GetTypeInfo().Assembly.GetName().Name;
-
             services
-                .AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddInMemoryIdentityResources(Configuration.GetIdentityResources())
-                .AddInMemoryClients(Configuration.GetClients())
+                .AddIdentityServer(options =>
+                {
+                    options.IssuerUri = "http://test.identityserver.com";
+                    options.Endpoints.EnableJwtRequestUri = true;
+                })
                 .AddAspNetIdentity<User>()
                 .AddOperationalStore(options =>
                     options.ConfigureDbContext = builder =>
-                        builder.UseNpgsql(operationalConnection, db => db.MigrationsAssembly(migrationAssembly)));
+                        builder.UseNpgsql(operationalConnection, dbOptions => dbOptions.MigrationsAssembly(@"AuthenticationService.Infrastructure")))
+                .AddConfigurationStore(options => 
+                    options.ConfigureDbContext = builder => 
+                        builder.UseNpgsql(configurationConnection, dbOptions => dbOptions.MigrationsAssembly(@"AuthenticationService.Infrastructure")))
+                .AddDeveloperSigningCredential();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/login";
+            });
+
             return services;
-        }
-
-        public static IServiceCollection AddConfiguredMapper(this IServiceCollection services)
-        {
-            return services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
-        }
-
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-        {
-            return services
-                .AddScoped<IAccountService, AccountService>();
         }
 
         public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
@@ -73,6 +71,7 @@ namespace AuthenticationService.Extensions
             return services
                 .AddSwaggerGen(options =>
                 {
+                    options.EnableAnnotations();
                     options.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationService", Version = "v1" });
                 });
         }

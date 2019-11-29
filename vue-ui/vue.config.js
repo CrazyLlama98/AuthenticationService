@@ -1,3 +1,6 @@
 module.exports = {
-  outputDir: '../AuthenticationService/wwwroot'
+  "outputDir": "../AuthenticationService/wwwroot",
+  "transpileDependencies": [
+    "vuetify"
+  ]
 }

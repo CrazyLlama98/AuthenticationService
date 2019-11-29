@@ -1,0 +1,371 @@
+{
+  "AuthenticationService.dll": {
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\Validators\\AccountDtoValidator.cs": {
+      "AuthenticationService.Validators.AccountDtoValidator": {
+        "System.Void AuthenticationService.Validators.AccountDtoValidator::.ctor()": {
+          "Lines": {
+            "8": 17,
+            "9": 17,
+            "10": 17,
+            "11": 17,
+            "12": 17,
+            "14": 17,
+            "15": 17,
+            "16": 17,
+            "18": 17,
+            "19": 17,
+            "20": 17,
+            "21": 17
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\Utilities\\Configuration.cs": {
+      "AuthenticationService.Utilities.Configuration": {
+        "System.Collections.Generic.IEnumerable`1<IdentityServer4.Models.IdentityResource> AuthenticationService.Utilities.Configuration::GetIdentityResources()": {
+          "Lines": {
+            "10": 0,
+            "11": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<IdentityServer4.Models.Client> AuthenticationService.Utilities.Configuration::GetClients()": {
+          "Lines": {
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\Services\\Implementation\\AccountService.cs": {
+      "AuthenticationService.Services.Implementation.AccountService": {
+        "AuthenticationService.Dtos.OperationResultDto AuthenticationService.Services.Implementation.AccountService::CreateResultWithError(Microsoft.AspNetCore.Identity.IdentityResult)": {
+          "Lines": {
+            "32": 1,
+            "33": 2,
+            "34": 1
+          },
+          "Branches": [
+            {
+              "Line": 33,
+              "Offset": 27,
+              "EndOffset": 29,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 33,
+              "Offset": 27,
+              "EndOffset": 52,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        },
+        "AuthenticationService.Dtos.OperationResultDto AuthenticationService.Services.Implementation.AccountService::CreateSuccessfulResult()": {
+          "Lines": {
+            "37": 1,
+            "38": 1,
+            "39": 1
+          },
+          "Branches": []
+        },
+        "System.Void AuthenticationService.Services.Implementation.AccountService::.ctor(Microsoft.AspNetCore.Identity.UserManager`1<AuthenticationService.Models.User>,AutoMapper.IMapper)": {
+          "Lines": {
+            "16": 2,
+            "17": 2,
+            "18": 2,
+            "19": 2,
+            "20": 2
+          },
+          "Branches": []
+        }
+      },
+      "AuthenticationService.Services.Implementation.AccountService/<CreateAccountAsync>d__3": {
+        "System.Void AuthenticationService.Services.Implementation.AccountService/<CreateAccountAsync>d__3::MoveNext()": {
+          "Lines": {
+            "23": 2,
+            "24": 2,
+            "26": 2,
+            "28": 2,
+            "29": 2
+          },
+          "Branches": [
+            {
+              "Line": 26,
+              "Offset": 89,
+              "EndOffset": 158,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            },
+            {
+              "Line": 28,
+              "Offset": 201,
+              "EndOffset": 203,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 28,
+              "Offset": 201,
+              "EndOffset": 216,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    },
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\MapperProfiles\\AccountProfile.cs": {
+      "AuthenticationService.MapperProfiles.AccountProfile": {
+        "System.Void AuthenticationService.MapperProfiles.AccountProfile::.ctor()": {
+          "Lines": {
+            "9": 6,
+            "10": 6,
+            "11": 6,
+            "12": 12,
+            "13": 12,
+            "14": 6
+          },
+          "Branches": [
+            {
+              "Line": 11,
+              "Offset": 82,
+              "EndOffset": 84,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 11,
+              "Offset": 82,
+              "EndOffset": 107,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 6
+            },
+            {
+              "Line": 11,
+              "Offset": 180,
+              "EndOffset": 182,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 2
+            },
+            {
+              "Line": 11,
+              "Offset": 180,
+              "EndOffset": 205,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 6
+            }
+          ]
+        }
+      }
+    },
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\Dtos\\AccountDto.cs": {
+      "AuthenticationService.Dtos.AccountDto": {
+        "System.String AuthenticationService.Dtos.AccountDto::get_Email()": {
+          "Lines": {
+            "7": 58
+          },
+          "Branches": []
+        },
+        "System.String AuthenticationService.Dtos.AccountDto::get_Username()": {
+          "Lines": {
+            "8": 54
+          },
+          "Branches": []
+        },
+        "System.String AuthenticationService.Dtos.AccountDto::get_Password()": {
+          "Lines": {
+            "9": 54
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\Dtos\\OperationResultDto.cs": {
+      "AuthenticationService.Dtos.OperationResultDto": {
+        "System.Boolean AuthenticationService.Dtos.OperationResultDto::get_IsSuccessful()": {
+          "Lines": {
+            "7": 4
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<System.String> AuthenticationService.Dtos.OperationResultDto::get_Errors()": {
+          "Lines": {
+            "8": 2
+          },
+          "Branches": []
+        }
+      },
+      "AuthenticationService.Dtos.OperationResultDto`1": {
+        "TData AuthenticationService.Dtos.OperationResultDto`1::get_Data()": {
+          "Lines": {
+            "14": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\DbContexts\\AuthenticationDbContext.cs": {
+      "AuthenticationService.DbContexts.AuthenticationDbContext": {
+        "System.Void AuthenticationService.DbContexts.AuthenticationDbContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<AuthenticationService.DbContexts.AuthenticationDbContext>)": {
+          "Lines": {
+            "11": 0,
+            "12": 0,
+            "13": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\Controllers\\AccountsController.cs": {
+      "AuthenticationService.Controllers.AccountsController": {
+        "System.Void AuthenticationService.Controllers.AccountsController::.ctor(AuthenticationService.Services.Interfaces.IAccountService)": {
+          "Lines": {
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0
+          },
+          "Branches": []
+        }
+      },
+      "AuthenticationService.Controllers.AccountsController/<>c": {
+        "Microsoft.AspNetCore.Mvc.ModelBinding.ModelErrorCollection AuthenticationService.Controllers.AccountsController/<>c::<CreateAccount>b__2_0(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry)": {
+          "Lines": {
+            "26": 0
+          },
+          "Branches": []
+        }
+      },
+      "AuthenticationService.Controllers.AccountsController/<CreateAccount>d__2": {
+        "System.Void AuthenticationService.Controllers.AccountsController/<CreateAccount>d__2::MoveNext()": {
+          "Lines": {
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "29": 0,
+            "31": 0,
+            "32": 0
+          },
+          "Branches": [
+            {
+              "Line": 24,
+              "Offset": 39,
+              "EndOffset": 41,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 26,
+              "Offset": 75,
+              "EndOffset": 77,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 26,
+              "Offset": 75,
+              "EndOffset": 100,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 39,
+              "EndOffset": 121,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 156,
+              "EndOffset": 158,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 156,
+              "EndOffset": 226,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 31,
+              "Offset": 269,
+              "EndOffset": 271,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 31,
+              "Offset": 269,
+              "EndOffset": 304,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\Projects\\AuthenticationService\\AuthenticationService\\Controllers\\HomeController.cs": {
+      "AuthenticationService.Controllers.HomeController": {
+        "Microsoft.AspNetCore.Mvc.IActionResult AuthenticationService.Controllers.HomeController::Index()": {
+          "Lines": {
+            "8": 0,
+            "9": 0,
+            "10": 0
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}
