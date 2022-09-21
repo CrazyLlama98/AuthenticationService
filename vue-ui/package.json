@@ -16,7 +16,7 @@
     "vee-validate": "^3.0.11",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "vuetify": "^2.1.9"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.0",
